@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./assets/style.css">
+        <title>Calculator</title>
+    </head>
+    <body>
+         <div class="container">
+            <input type="checkbox" id="switcher" class = "checkbox">
+            <label for="switcher" class="toggle"></label>
+            <div class="display">
+                <h1 class="client-insert"></h1>
+                <h1 class="result"></h1>
+            </div>
+            <div class="key-board">
+                <table>
+                    <tr>
+                        <td><button class="js-btn-insert btn-operator" value = "+" id="plus">+</button></td>
+                        <td><button class="js-btn-insert btn-operator" value = "-" id="minus">-</button></td>
+                        <td><button class="js-btn-insert btn-operator" value = "*" id="times">&times</button></td>
+                        <td><button class="js-btn-insert btn-operator" value = "/" id="divide">&divide</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="js-btn-insert btn-number" value = "7" id="7">7</button></td>
+                        <td><button class="js-btn-insert btn-number" value = "8" id="8">8</button></td>
+                        <td><button class="js-btn-insert btn-number" value = "9" id="9">9</button></td>
+                        <td><button class="js-btn-insert btn-operator" id="clear">AC</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="js-btn-insert btn-number" value = "4" id="4">4</button></td>
+                        <td><button class="js-btn-insert btn-number" value = "5" id="5">5</button></td>
+                        <td><button class="js-btn-insert btn-number" value = "6" id="6">6</button></td>
+                        <td><button class="js-btn-insert btn-operator" value = "(" id="open">(</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="js-btn-insert btn-number" value = "1" id="1">1</button></td>
+                        <td><button class="js-btn-insert btn-number" value = "2" id="2">2</button></td>
+                        <td><button class="js-btn-insert btn-number" value = "3" id="3">3</button></td>
+                        <td><button class="js-btn-insert btn-operator" value = ")" id="close">)</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="js-btn-insert btn-number" value = "0" id="0">0</button></td>
+                        <td><button class="js-btn-insert btn-operator" value = "." id="dot">.</button></td>
+                        <td><button class="js-btn-insert btn-operator" id="delete">DEL</button></td>
+                        <td><button class="js-btn-insert btn-operator" id="equal">=</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div> 
+        <script>
+            var calculateArray = []
+            var btnEqual = document.querySelector('#equal')
+            var clientInsert = document.querySelector('.client-insert')
+            var btnInserts = document.querySelectorAll('.js-btn-insert')
+            for(var btnInsert of btnInserts){
+                btnInsert.onclick = function(e){
+                    clientInsert.innerHTML += e.target.value
+                    var length = clientInsert.textContent.length
+                    if(length > 20 && length <= 21 || length > 40 && length <= 41){
+                        clientInsert.innerHTML += "<br>"
+                    }
+                    if(length > 60){
+                        clientInsert.innerHTML = "THE NUMBER STRING IS TOO LONG !!"
+                    }
+                }  
+            }
+            var result = document.querySelector(".result")
+            var btnClean = document.querySelector("#clear")
+            btnClean.onclick = function(){
+                result.innerHTML = " ";
+                clientInsert.innerHTML = " ";
+            }
+            btnEqual.onclick = function(){
+                let string = clientInsert.textContent
+                let res = ""
+                for(var i = 0; i<clientInsert.textContent.length; i++){
+                    if(res[i] != " "){
+                        string[i] = res[i]
+                    }
+                }
+                let output = eval(string)
+                result.innerHTML = output
+            }
+
+            var btnDEL = document.querySelector("#delete")
+            btnDEL.onclick = ()=>{
+                clientInsert.innerHTML 
+                    = clientInsert.innerHTML.substring(0,clientInsert.innerHTML.length - 1)
+            }
+            console.log(clientInsert.length)
+            
+            var wholeCalculator = document.querySelector('.container')
+            var themeModebutton = document.querySelector('.checkbox')
+            var wholeDisplay = document.querySelector('.display')
+            var allBtn = document.querySelectorAll('button')
+                themeModebutton.onclick=()=>{
+                    if(themeModebutton.checked){
+                        wholeCalculator.classList.add('case-darktheme');
+                        wholeDisplay.classList.add('display-darktheme');
+                        allBtn.forEach((element)=>{
+                            element.classList.add('btn-darktheme')
+                        })
+
+                    } else {
+                        wholeCalculator.classList.remove('case-darktheme');
+                        wholeDisplay.classList.remove('display-darktheme');
+                        allBtn.forEach((element)=>{
+                            element.classList.remove('btn-darktheme')
+                        })
+                    }
+                }
+            
+            
+            
+            
+            
+        </script>
+    </body>
+</html>
